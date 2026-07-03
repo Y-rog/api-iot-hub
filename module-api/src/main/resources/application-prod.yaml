@@ -1,0 +1,9 @@
+logging:
+  level:
+    root: WARN
+    com.iot: INFO
+    org.springframework: WARN
+    org.hibernate: ERROR
+spring:
+  jpa:
+    show-sql: false

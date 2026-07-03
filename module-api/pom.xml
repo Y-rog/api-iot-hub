@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 1. Ton parent -->
+    <parent>
+        <groupId>com.iot</groupId>
+        <artifactId>iot-hub</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <!-- 2. Ton identité -->
+    <artifactId>module-api</artifactId>
+
+    <!-- 3. Tes dépendances -->
+    <dependencies>
+
+        <!-- module-shared -->
+        <dependency>
+            <groupId>com.iot</groupId>
+            <artifactId>module-shared</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- module-devices -->
+        <dependency>
+            <groupId>com.iot</groupId>
+            <artifactId>module-devices</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- module-integrations -->
+        <dependency>
+            <groupId>com.iot</groupId>
+            <artifactId>module-integrations</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- Spring Boot Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Data JPA -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- MapStruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+
+        <!-- PostgreSQL Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

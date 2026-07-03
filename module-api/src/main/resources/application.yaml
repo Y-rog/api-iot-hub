@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: ${SHOW_SQL:false}  ← false par défaut
+server:
+  port: 8080
+airthings:
+  client-id: ${AIRTHINGS_CLIENT_ID}
+  client-secret: ${AIRTHINGS_CLIENT_SECRET}
+  token-url: https://accounts-api.airthings.com/v1/token
+  api-url: https://consumer-api.airthings.com/v1
+  account-id: ${AIRTHINGS_ACCOUNT_ID}
