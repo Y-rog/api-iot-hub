@@ -1,0 +1,16 @@
+package com.iot.alerts.port.in;
+
+import com.iot.alerts.model.Alert;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface AlertUseCase {
+
+    Alert createAlert(Alert alert);
+
+    List<Alert> getAllAlerts();
+
+    Optional<Alert> markAsRead(String id);
+
+}

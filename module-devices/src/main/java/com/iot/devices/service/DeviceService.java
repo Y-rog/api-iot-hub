@@ -7,6 +7,7 @@ import com.iot.shared.enums.DeviceType;
 import com.iot.shared.event.DeviceDataEvent;
 import com.iot.shared.exception.DeviceNotFoundException;
 import com.iot.shared.model.DeviceData;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
+@Slf4j
 @Service
 public class DeviceService implements DeviceUseCase {
 

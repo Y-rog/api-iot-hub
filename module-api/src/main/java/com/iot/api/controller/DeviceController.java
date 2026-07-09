@@ -36,20 +36,22 @@ public class DeviceController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createDevice(@RequestBody DeviceDTO dto) {
+    public ResponseEntity<DeviceDTO>  createDevice(@RequestBody DeviceDTO dto) {
         Device created = deviceUseCase.createDevice(deviceMapper.toEntity(dto));
-        return ResponseEntity.created(
-                URI.create("/api/devices/" + created.getId())
-        ).build();
+        return ResponseEntity.created(URI.create("/api/devices/" + created.getId()))
+                .body(deviceMapper.toDTO(created));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Void> updateDevice(@PathVariable String id, @RequestBody DeviceDTO dto) {
-        Device updated = deviceUseCase.updateDevice(deviceMapper.toEntity(dto));
+    public ResponseEntity<DeviceDTO> updateDevice(@PathVariable String id, @RequestBody DeviceDTO dto) {
+        Device device = deviceMapper.toEntity(dto)
+                .toBuilder()
+                .id(id)
+                .build();
+        Device updated = deviceUseCase.updateDevice(device);
         return ResponseEntity.ok()
                 .location(URI.create("/api/devices/" + updated.getId()))
-                .build();
-
+                .body(deviceMapper.toDTO(updated));
     }
 
     @DeleteMapping("{id}")
