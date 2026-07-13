@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -24,7 +25,10 @@ public class AlertRuleService implements AlertRuleUseCase {
     public AlertRule createAlertRule(AlertRule rule) {
         log.info("Création règle : {} {} {}",
                 rule.getSensorType(), rule.getOperator(), rule.getThreshold());
-        return alertRuleRepository.saveAlertRule(rule);
+        AlertRule ruleWithId = rule.toBuilder()
+                .id(UUID.randomUUID().toString())
+                .build();
+        return alertRuleRepository.saveAlertRule(ruleWithId);
     }
 
     @Override

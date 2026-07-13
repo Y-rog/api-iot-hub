@@ -26,9 +26,7 @@
         <module>module-api</module>
         <module>module-integrations</module>
         <module>module-alerts</module>
-        <!--
-<module>module-history</module>
--->
+        <module>module-history</module>
     </modules>
 
     <!-- Versions -->
