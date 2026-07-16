@@ -7,7 +7,10 @@ API centralisée pour objets connectés, construite avec **Spring Boot** et une 
 Le projet suit une architecture **Monolithe Modulaire Hexagonal** — chaque module a un rôle précis et communique via des événements Spring.
 
 ```
-[Airthings API] → module-integrations → module-devices → module-api → [Front]
+[Airthings API] ──► module-integrations ──► module-devices ──► module-api ──► [Front]
+[Sinopé Zigbee] ──►        │
+                     module-alerts
+                     module-history
 ```
 
 ### Les modules
@@ -16,10 +19,10 @@ Le projet suit une architecture **Monolithe Modulaire Hexagonal** — chaque mod
 |---|---|
 | `module-shared` | Classes communes (DeviceData, events, enums) |
 | `module-devices` | Gestion et persistance des appareils |
-| `module-integrations` | Connexion aux APIs externes (Airthings...) |
+| `module-integrations` | Connexion aux APIs externes (Airthings, Sinopé MQTT) |
 | `module-api` | Exposition REST vers le front |
-| `module-alerts` | Surveillance et alertes *(à venir)* |
-| `module-history` | Historique des mesures *(à venir)* |
+| `module-alerts` | Surveillance et alertes |
+| `module-history` | Historique des mesures |
 
 ## Stack technique
 
@@ -28,21 +31,43 @@ Le projet suit une architecture **Monolithe Modulaire Hexagonal** — chaque mod
 - **MapStruct** — mapping entre couches
 - **Lombok** — réduction du boilerplate
 - **OAuth2** — authentification Airthings
+- **MQTT / Mosquitto** — communication avec les thermostats Sinopé
+- **Zigbee2MQTT** — bridge Zigbee vers MQTT
+
+## Infrastructure IoT
+
+- **Raspberry Pi 4** — serveur domotique local
+- **ConBee III** — coordinateur Zigbee USB
+- **Zigbee2MQTT** — bridge Zigbee → MQTT
+- **Mosquitto** — broker MQTT (Docker)
 
 ## Endpoints REST
 
 ```
-GET    /api/devices         → Liste tous les appareils
-GET    /api/devices/{id}    → Détail d'un appareil
-POST   /api/devices         → Ajoute un appareil
-PUT    /api/devices/{id}    → Met à jour un appareil
-DELETE /api/devices/{id}    → Supprime un appareil
+GET    /api/devices              → Liste tous les appareils
+GET    /api/devices/{id}         → Détail d'un appareil
+POST   /api/devices              → Ajoute un appareil
+PUT    /api/devices/{id}         → Met à jour un appareil
+DELETE /api/devices/{id}         → Supprime un appareil
+
+GET    /api/alerts               → Liste les alertes
+PUT    /api/alerts/{id}/read     → Marquer comme lue
+
+GET    /api/alertRules           → Liste les règles d'alerte
+POST   /api/alertRules           → Créer une règle
+PUT    /api/alertRules/{id}      → Modifier une règle
+DELETE /api/alertRules/{id}      → Supprimer une règle
+
+GET    /api/history/{deviceId}   → Historique des mesures
+
+GET    /swagger-ui/index.html    → Documentation interactive
 ```
 
 ## Intégrations supportées
 
-- ✅ **Airthings** (View Plus) — qualité de l'air, température, CO2, radon...
-- ⏳ **Sinopé** — thermostats électriques via MQTT *(à venir)*
+- ✅ **Airthings** (View Plus) — qualité de l'air, température, CO2, radon, PM2.5...
+- ✅ **Sinopé TH1124ZB** — thermostats électriques 240V via Zigbee/MQTT
+- ⏳ Autres devices Zigbee *(à venir)*
 
 ## Installation
 
@@ -51,10 +76,9 @@ DELETE /api/devices/{id}    → Supprime un appareil
 - Java 21
 - Maven
 - PostgreSQL
+- Raspberry Pi 4 + ConBee III (pour les thermostats Sinopé)
 
 ### Variables d'environnement
-
-Copie le fichier d'exemple et remplis les valeurs :
 
 ```bash
 # Base de données
@@ -82,6 +106,7 @@ mvn spring-boot:run -pl module-api
 ```
 
 L'API est disponible sur `http://localhost:8080`
+La documentation Swagger sur `http://localhost:8080/swagger-ui/index.html`
 
 ## Auteur
 
