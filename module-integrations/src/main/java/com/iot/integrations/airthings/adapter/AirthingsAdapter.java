@@ -5,6 +5,7 @@ import com.iot.integrations.airthings.client.dto.AirthingsDeviceResponse;
 import com.iot.integrations.airthings.client.dto.AirthingsSensorResponse;
 import com.iot.integrations.airthings.client.dto.AirthingsSensorResult;
 import com.iot.shared.enums.DeviceBrand;
+import com.iot.shared.enums.DeviceType;
 import com.iot.shared.model.DeviceData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -47,7 +48,7 @@ public class AirthingsAdapter {
             DeviceData data = DeviceData.builder()
                     .deviceId(device.getSerialNumber())
                     .name(device.getName())
-                    .type("AIR_QUALITY")
+                    .type(DeviceType.AIR_QUALITY)
                     .source(DeviceBrand.AIRTHINGS)
                     .sensors(measurements)
                     .timestamp(LocalDateTime.now())

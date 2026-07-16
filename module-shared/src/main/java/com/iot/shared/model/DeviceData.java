@@ -1,6 +1,7 @@
 package com.iot.shared.model;
 
 import com.iot.shared.enums.DeviceBrand;
+import com.iot.shared.enums.DeviceType;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,7 +16,7 @@ public class DeviceData {
 
     private String name;
 
-    private String type;
+    private DeviceType type;
 
     private Map<String, Object> sensors;
 

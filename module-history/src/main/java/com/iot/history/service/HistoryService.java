@@ -48,7 +48,7 @@ public class HistoryService implements HistoryUseCase {
             DataPoint dataPoint = DataPoint.builder()
                     .deviceId(data.getDeviceId())
                     .sensorType(sensorType)
-                    .value((Double) value)
+                    .value(((Number) value).doubleValue())
                     .timestamp(LocalDateTime.now())
                     .build();
 

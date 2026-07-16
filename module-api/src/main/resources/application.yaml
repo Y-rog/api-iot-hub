@@ -6,7 +6,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: ${SHOW_SQL:false}  ← false par défaut
+    show-sql: ${SHOW_SQL:false}
 server:
   port: 8080
 airthings:
@@ -15,3 +15,8 @@ airthings:
   token-url: https://accounts-api.airthings.com/v1/token
   api-url: https://consumer-api.airthings.com/v1
   account-id: ${AIRTHINGS_ACCOUNT_ID}
+sinope:
+  broker-url: tcp://192.168.2.51:1883
+  topics:
+    - zigbee2mqtt/thermostat-chambre-ethan
+    - zigbee2mqtt/thermostat-chambre-clemence

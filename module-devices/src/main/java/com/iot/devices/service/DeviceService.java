@@ -63,7 +63,7 @@ public class DeviceService implements DeviceUseCase {
                 .id(data.getDeviceId())
                 .name(data.getName())
                 .brand(data.getSource())
-                .type(DeviceType.valueOf(data.getType()))
+                .type(data.getType())
                 .connected(true)
                 .lastSeen(LocalDateTime.now())
                 .build();
