@@ -56,9 +56,14 @@ public class AlertService implements AlertUseCase {
             // Récupère la valeur du capteur concerné
             Double value = (Double) data.getSensors().get(rule.getSensorType());
             if (value != null && checkCondition(value, rule)) {
-                log.warn("Alerte déclenchée ! Device: {} - {} = {}",
-                        data.getName(), rule.getSensorType(), value);
-                // Crée l'alerte
+
+                // Vérifie le cooldown AVANT de créer l'alerte
+                boolean recentAlertExists = alertRepository.existsRecentAlert(
+                        data.getDeviceId(),
+                        rule.getSensorType(),
+                        LocalDateTime.now().minusHours(1)
+                );
+
                 Alert alert = Alert.builder()
                         .id(UUID.randomUUID().toString())
                         .deviceId(data.getDeviceId())
@@ -70,7 +75,11 @@ public class AlertService implements AlertUseCase {
                         .build();
 
                 alertRepository.saveAlert(alert);
-                notificationPort.sendNotification(alert);
+
+                // Envoie notification seulement si pas de cooldown
+                if (!recentAlertExists) {
+                    notificationPort.sendNotification(alert);
+                }
             }
         }
     }

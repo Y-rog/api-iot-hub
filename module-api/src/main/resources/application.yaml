@@ -7,6 +7,19 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: ${SHOW_SQL:false}
+  mail:
+    host: smtp.hostinger.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+notification:
+  email-to: ${MAIL_TO}
 server:
   port: 8080
 airthings:
