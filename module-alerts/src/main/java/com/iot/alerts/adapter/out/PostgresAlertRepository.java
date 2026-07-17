@@ -4,6 +4,7 @@ import com.iot.alerts.model.Alert;
 import com.iot.alerts.port.out.AlertRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,13 @@ public class PostgresAlertRepository implements AlertRepository {
             alert.setRead(true);
             return alertJpaRepository.save(alert);
         });
+    }
+
+    @Override
+    public boolean existsRecentAlert(String deviceId, String sensorType, LocalDateTime since) {
+        return alertJpaRepository.existsByDeviceIdAndSensorTypeAndCreatedAtAfter(
+                deviceId, sensorType, since
+        );
     }
 
 }
