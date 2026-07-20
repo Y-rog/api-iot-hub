@@ -40,3 +40,7 @@ sinope:
     - zigbee2mqtt/thermostat-chambre-parentale
     - zigbee2mqtt/thermostat-chambre-ethan
     - zigbee2mqtt/thermostat-chambre-clemence
+cors:
+  allowed-origins:
+    - http://localhost:4200
+    - https://iot.y-rog.com
