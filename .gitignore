@@ -46,3 +46,8 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
+
+# Config Zigbee2MQTT (contient les devices)
+zigbee2mqtt/data/database.db
+zigbee2mqtt/data/coordinator_backup.json
+zigbee2mqtt/data/log/

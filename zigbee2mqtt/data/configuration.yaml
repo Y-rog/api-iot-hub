@@ -1,0 +1,35 @@
+homeassistant:
+  enabled: false
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://mosquitto
+serial:
+  port: /dev/ttyUSB0
+  adapter: deconz
+  baudrate: 115200
+  rtscts: false
+frontend:
+  enabled: true
+  port: 8080
+advanced:
+  log_level: debug
+version: 5
+devices:
+  '0xe456acfffe6e2860':
+    friendly_name: thermostat-chambre-ethan
+  '0xe456acfffeadf828':
+    friendly_name: thermostat-chambre-clemence
+  '0xe456acfffeaf2e4d':
+    friendly_name: thermostat-salon
+  '0xe456acfffe6e2ff2':
+    friendly_name: thermostat-sejour
+  '0xe456acfffe6e4114':
+    friendly_name: thermostat-salle-de-bain-etage
+  '0xe456acfffe6e4516':
+    friendly_name: thermostat-sous-sol
+  '0xe456acfffe4fe64f':
+    friendly_name: thermostat-chambre-sous-sol
+  '0xe456acfffe6d005a':
+    friendly_name: thermostat-wc-rdc
+  '0xe456acfffeae3259':
+    friendly_name: thermostat-chambre-parentale
