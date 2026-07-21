@@ -43,4 +43,4 @@ sinope:
 cors:
   allowed-origins:
     - http://localhost:4200
-    - https://iot.y-rog.com
+    - https://iot-hub.y-rog.com
