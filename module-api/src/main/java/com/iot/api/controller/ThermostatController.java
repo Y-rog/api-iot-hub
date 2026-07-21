@@ -3,6 +3,7 @@ package com.iot.api.controller;
 import com.iot.api.dto.ThermostatCommandDTO;
 import com.iot.history.port.in.HistoryUseCase;
 import com.iot.integrations.sinope.publisher.MqttPublisher;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,6 @@ public class ThermostatController {
         this.historyUseCase = historyUseCase;
     }
 
-
     @GetMapping("/{id}/temperature")
     public ResponseEntity<ThermostatCommandDTO> getTemperature(@PathVariable String id) {
         return historyUseCase.getHistory(id)
@@ -30,12 +30,11 @@ public class ThermostatController {
     }
 
     @PutMapping("/{id}/temperature")
-    public ResponseEntity<Void> setTemperature(@PathVariable String id, @RequestBody ThermostatCommandDTO dto) {
+    public ResponseEntity<Void> setTemperature(
+            @PathVariable String id,
+            @Valid @RequestBody ThermostatCommandDTO dto) {
+
         mqttPublisher.setTemperature(id, dto.temperature());
         return ResponseEntity.ok().build();
-
     }
-
-
-
 }
