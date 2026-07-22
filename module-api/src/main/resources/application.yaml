@@ -10,19 +10,7 @@ spring:
   flyway:
     baseline-on-migrate: true
     baseline-version: 1
-  mail:
-    host: smtp.hostinger.com
-    port: 587
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-notification:
-  email-to: ${MAIL_TO}
+
 server:
   port: 8080
 airthings:
@@ -51,3 +39,8 @@ cors:
 jwt:
   secret: ${JWT_SECRET}
   expiration-ms: 86400000
+
+vapid:
+  public-key: ${VAPID_PUBLIC_KEY}
+  private-key: ${VAPID_PRIVATE_KEY}
+  subject: ${VAPID_SUBJECT}

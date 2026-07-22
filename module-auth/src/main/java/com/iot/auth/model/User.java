@@ -1,4 +1,4 @@
-package com.iot.auth.domain;
+package com.iot.auth.model;
 
 import java.util.UUID;
 

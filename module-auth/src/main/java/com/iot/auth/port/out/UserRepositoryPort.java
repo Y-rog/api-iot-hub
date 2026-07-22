@@ -1,6 +1,6 @@
 package com.iot.auth.port.out;
 
-import com.iot.auth.domain.User;
+import com.iot.auth.model.User;
 
 import java.util.Optional;
 

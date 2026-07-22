@@ -1,4 +1,4 @@
-package com.iot.auth.adapter.out.persistence;
+package com.iot.auth.adapter.out;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

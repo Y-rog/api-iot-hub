@@ -1,6 +1,6 @@
 package com.iot.auth.adapter.in.cli;
 
-import com.iot.auth.domain.User;
+import com.iot.auth.model.User;
 import com.iot.auth.port.out.UserRepositoryPort;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
