@@ -9,7 +9,6 @@ services:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
-
   zigbee2mqtt:
     image: koenkk/zigbee2mqtt:latest
     container_name: zigbee2mqtt
@@ -28,18 +27,16 @@ services:
       - /dev/ttyUSB0:/dev/ttyUSB0
     depends_on:
       - mosquitto
-
   postgres:
     image: postgres:16
     container_name: postgres
     restart: always
     environment:
       POSTGRES_DB: iot_hub
-      POSTGRES_USER: iot_user
-      POSTGRES_PASSWORD: iot123
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
   iot-hub-api:
     build: .
     container_name: iot-hub-api
@@ -48,8 +45,9 @@ services:
       - "8090:8080"
     environment:
       DB_URL: jdbc:postgresql://postgres:5432/iot_hub
-      DB_USERNAME: iot_user
-      DB_PASSWORD: iot123
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
       AIRTHINGS_CLIENT_ID: ${AIRTHINGS_CLIENT_ID}
       AIRTHINGS_CLIENT_SECRET: ${AIRTHINGS_CLIENT_SECRET}
       AIRTHINGS_ACCOUNT_ID: ${AIRTHINGS_ACCOUNT_ID}
@@ -61,6 +59,5 @@ services:
     depends_on:
       - postgres
       - mosquitto
-
 volumes:
   postgres_data:
