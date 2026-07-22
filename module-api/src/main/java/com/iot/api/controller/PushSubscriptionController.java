@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/push")
@@ -31,6 +32,13 @@ public class PushSubscriptionController {
 
     @PostMapping("/subscribe")
     public ResponseEntity<Void> subscribe(@RequestBody SubscriptionDTO dto) {
+        Optional<PushSubscription> existing = repository.findByEndpoint(dto.endpoint());
+
+        if (existing.isPresent()) {
+            // Abonnement déjà connu, rien à faire
+            return ResponseEntity.ok().build();
+        }
+
         PushSubscription subscription = PushSubscription.builder()
                 .endpoint(dto.endpoint())
                 .p256dh(dto.keys().p256dh())

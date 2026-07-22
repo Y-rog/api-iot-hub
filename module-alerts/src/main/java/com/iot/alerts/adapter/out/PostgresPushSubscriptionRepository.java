@@ -4,6 +4,7 @@ import com.iot.alerts.model.PushSubscription;
 import com.iot.alerts.port.out.PushSubscriptionRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PostgresPushSubscriptionRepository implements PushSubscriptionRepository {
@@ -23,5 +24,9 @@ public class PostgresPushSubscriptionRepository implements PushSubscriptionRepos
     public List<PushSubscription> findAll() {
         return jpaRepository.findAll();
     }
-}
 
+    @Override
+    public Optional<PushSubscription> findByEndpoint(String endpoint) {
+        return jpaRepository.findByEndpoint(endpoint);
+    }
+}
