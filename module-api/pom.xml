@@ -50,6 +50,13 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- module-auth -->
+        <dependency>
+            <groupId>com.iot</groupId>
+            <artifactId>module-auth</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
 
         <!-- Spring Boot Web -->
         <dependency>
@@ -92,6 +99,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!-- Flyway -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>10.20.1</version>
         </dependency>
 
     </dependencies>

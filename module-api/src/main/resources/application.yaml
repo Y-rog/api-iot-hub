@@ -5,8 +5,11 @@ spring:
     password: ${DB_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: ${SHOW_SQL:false}
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 1
   mail:
     host: smtp.hostinger.com
     port: 587
@@ -44,3 +47,7 @@ cors:
   allowed-origins:
     - http://localhost:4200
     - https://iot-hub.y-rog.com
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: 86400000

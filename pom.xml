@@ -27,6 +27,7 @@
         <module>module-integrations</module>
         <module>module-alerts</module>
         <module>module-history</module>
+        <module>module-auth</module>
     </modules>
 
     <!-- Versions -->
@@ -47,11 +48,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
