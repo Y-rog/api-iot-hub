@@ -35,7 +35,10 @@ public class PushNotificationService {
 
     private void sendToOne(PushSubscription sub, String title, String body) {
         try {
-            String payload = String.format("{\"title\":\"%s\",\"body\":\"%s\"}", title, body);
+            String payload = String.format(
+                    "{\"notification\":{\"title\":\"%s\",\"body\":\"%s\"}}",
+                    title, body
+            );
 
             nl.martijndwars.webpush.Subscription subscription = new nl.martijndwars.webpush.Subscription(
                     sub.getEndpoint(),
