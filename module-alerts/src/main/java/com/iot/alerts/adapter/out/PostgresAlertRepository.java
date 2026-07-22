@@ -2,6 +2,7 @@ package com.iot.alerts.adapter.out;
 
 import com.iot.alerts.model.Alert;
 import com.iot.alerts.port.out.AlertRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,11 @@ public class PostgresAlertRepository implements AlertRepository {
     }
 
     @Override
+    public List<Alert> findRecent(int limit) {
+        return alertJpaRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(0, limit));
+    }
+
+    @Override
     public Optional<Alert> markAsRead(String id) {
         Optional<Alert> optAlert = alertJpaRepository.findById(id);
         return optAlert.map(alert -> {
@@ -42,5 +48,4 @@ public class PostgresAlertRepository implements AlertRepository {
                 deviceId, sensorType, since
         );
     }
-
 }

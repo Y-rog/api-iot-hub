@@ -24,7 +24,7 @@ public class AlertController {
 
     @GetMapping
     public List<AlertDTO> getAlerts(){
-        return alertUseCase.getAllAlerts()
+        return alertUseCase.getRecentAlerts(5)
                 .stream()
                 .map(alertMapper::toDTO)
                 .toList();

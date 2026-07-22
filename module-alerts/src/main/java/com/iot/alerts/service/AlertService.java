@@ -94,4 +94,9 @@ public class AlertService implements AlertUseCase {
         };
     }
 
+    @Override
+    public List<Alert> getRecentAlerts(int limit) {
+        return alertRepository.findRecent(limit);
+    }
+
 }
