@@ -134,6 +134,7 @@ git pull
 docker compose up -d --build iot-hub-api
 
 ## Auteur
-
+docker ps
+sudo ufw status
 Grégory Fulgueiras — Développeur Backend Java Spring Boot
 y-rog.com
