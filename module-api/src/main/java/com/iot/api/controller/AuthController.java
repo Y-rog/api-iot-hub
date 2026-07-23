@@ -1,4 +1,4 @@
-package com.iot.auth.adapter.in.web;
+package com.iot.api.controller;
 
 import com.iot.auth.port.in.AuthUseCase;
 import org.springframework.http.ResponseEntity;
