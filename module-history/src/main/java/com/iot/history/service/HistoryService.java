@@ -8,7 +8,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import com.iot.shared.event.DeviceDataEvent;
 import com.iot.shared.model.DeviceData;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +21,6 @@ public class HistoryService implements HistoryUseCase {
     public HistoryService(HistoryRepository historyRepository) {
         this.historyRepository = historyRepository;
     }
-
 
     @Override
     public List<DataPoint> getHistory(String deviceId) {
@@ -42,9 +40,23 @@ public class HistoryService implements HistoryUseCase {
         DeviceData data = event.getDeviceData();
         log.debug("Sauvegarde historique pour device : {}", data.getName());
 
-        data.getSensors().forEach((sensorType, value) -> {
-            log.debug("DataPoint : {} {} = {}",
-                    data.getDeviceId(), sensorType, value);
+        int savedCount = 0;
+
+        for (var entry : data.getSensors().entrySet()) {
+            String sensorType = entry.getKey();
+            Object value = entry.getValue();
+
+            // Certains appareils envoient parfois une mesure absente (null),
+            // par exemple "energy" ou "power" sur un thermostat qui vient de
+            // redémarrer — on l'ignore proprement plutôt que de planter
+            if (value == null) {
+                log.warn("Mesure ignorée : {} {} = null (device {})",
+                        data.getDeviceId(), sensorType, data.getName());
+                continue;
+            }
+
+            log.debug("DataPoint : {} {} = {}", data.getDeviceId(), sensorType, value);
+
             DataPoint dataPoint = DataPoint.builder()
                     .deviceId(data.getDeviceId())
                     .sensorType(sensorType)
@@ -53,9 +65,9 @@ public class HistoryService implements HistoryUseCase {
                     .build();
 
             registerDataPoint(dataPoint);
-        });
-        log.info("Historique sauvegardé : {} mesures pour {}",
-                data.getSensors().size(), data.getName());
-    }
+            savedCount++;
+        }
 
+        log.info("Historique sauvegardé : {} mesures pour {}", savedCount, data.getName());
+    }
 }

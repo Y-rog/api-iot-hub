@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -131,5 +132,34 @@ class HistoryServiceTest {
         historyService.onDeviceData(event);
 
         verify(historyRepository, never()).createDataPoint(any());
+    }
+
+    @Test
+    void should_skip_sensor_with_null_value_without_crashing() {
+        // Reproduit le bug réel rencontré en production : un thermostat
+        // envoie parfois une mesure à null (ex: "energy" juste après un
+        // redémarrage) — ça ne doit jamais faire planter tout le service
+        Map<String, Object> sensorsWithNull = new HashMap<>();
+        sensorsWithNull.put("temperature", 21.5);
+        sensorsWithNull.put("energy", null);
+
+        DeviceData data = DeviceData.builder()
+                .deviceId("thermostat-salon")
+                .name("Thermostat Salon")
+                .sensors(sensorsWithNull)
+                .build();
+
+        DeviceDataEvent event = DeviceDataEvent.builder()
+                .deviceData(data)
+                .occurredAt(LocalDateTime.now())
+                .build();
+
+        when(historyRepository.createDataPoint(any())).thenAnswer(i -> i.getArgument(0));
+
+        // Ne doit pas lever d'exception
+        historyService.onDeviceData(event);
+
+        // Seule la mesure valide (temperature) est sauvegardée, "energy" (null) est ignorée
+        verify(historyRepository, times(1)).createDataPoint(any());
     }
 }
